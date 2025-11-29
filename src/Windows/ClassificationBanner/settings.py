@@ -66,9 +66,6 @@ class BannerSettings:
         if registry_settings.get("TextColor") is not None:
             self.fg_color = registry_settings["TextColor"]
 
-        if registry_settings.get("FontFamily") is not None:
-            self.font_family = registry_settings["FontFamily"]
-
         if registry_settings.get("FPCON") is not None:
             self.fpcon = registry_settings["FPCON"]
 
@@ -79,12 +76,6 @@ class BannerSettings:
             self.group_id = registry_settings["GroupID"]
 
         # Integer values
-        if registry_settings.get("BannerHeight") is not None:
-            self.banner_height = registry_settings["BannerHeight"]
-
-        if registry_settings.get("FontSize") is not None:
-            self.font_size = registry_settings["FontSize"]
-
         if registry_settings.get("Enabled") is not None:
             self.enabled = registry_settings["Enabled"]
 
