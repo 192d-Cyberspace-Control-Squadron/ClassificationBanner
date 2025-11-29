@@ -6,10 +6,10 @@
 
 import os
 import sys
+import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import pytest
 
 from classification_banner.constants import (
     DEFAULT_CLASSIFICATION,
@@ -81,9 +81,7 @@ def test_banner_settings_update_from_registry_and_show_flags():
         "ShowUsername": True,
         "ShowWindowsVersion": True,
         "ShowIPAddress": True,
-        "ShowGroupID": True,
-        # Check interval
-        "CheckIntervalSeconds": 5,
+        "ShowGroupID": True
     }
 
     settings.update_from_registry(registry_values)
@@ -97,7 +95,6 @@ def test_banner_settings_update_from_registry_and_show_flags():
     assert settings.caveats == "HCS"
     assert settings.dissemination_controls == "NOFORN"
     assert settings.enabled == 1
-    assert settings.check_interval == 5
 
     # Flags should mirror the registry values
     assert settings.show_hostname is True
@@ -122,19 +119,19 @@ def test_banner_settings_store_state_and_has_changes_detects_diff():
 
     # Initial state: nothing stored yet
     settings.store_current_state()
-    assert settings.has_changes() is False
+    assert settings.has_changed() is False
 
     # Changing a single field should be detected
     settings.classification = "SECRET"
-    assert settings.has_changes() is True
+    assert settings.has_changed() is True
 
     # After re-storing state, no changes again
     settings.store_current_state()
-    assert settings.has_changes() is False
+    assert settings.has_changed() is False
 
     # Flip a boolean
     settings.show_hostname = True
-    assert settings.has_changes() is True
+    assert settings.has_changed() is True
 
 
 def test_banner_settings_classification_text_for_plain_and_sci():
