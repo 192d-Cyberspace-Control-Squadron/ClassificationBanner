@@ -116,7 +116,7 @@ class ClassificationBanner:
         self.classification: str = "UNCONFIGURED"
         self.bg_color: str = "#FFFFFF"
         self.fg_color: str = "#000000"
-        self.banner_height: int = 47
+        self.banner_height: int = 35
         self.font_size: int = 12
         self.font_family: str = "Arial"
         self.enabled: int = 1
