@@ -71,9 +71,9 @@ class BannerWindow:
         main_frame.grid_rowconfigure(0, weight=1)
 
         # 🔧 Key change: left & right expand, center stays fixed
-        main_frame.grid_columnconfigure(0, weight=1)  # left grows
+        main_frame.grid_columnconfigure(0, weight=1, uniform="sides")  # left grows
         main_frame.grid_columnconfigure(1, weight=0)  # center stays natural size
-        main_frame.grid_columnconfigure(2, weight=1)  # right grows
+        main_frame.grid_columnconfigure(2, weight=1, uniform="sides")  # right grows
 
         # Create font
         label_font = font.Font(
