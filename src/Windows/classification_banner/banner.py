@@ -28,7 +28,7 @@ class ClassificationBanner:
         # Gather system info if needed
         if self.settings.needs_system_info():
             self._gather_system_info()
-        
+
         # Generate Classification Text
         self.settings.get_classification_text()
 

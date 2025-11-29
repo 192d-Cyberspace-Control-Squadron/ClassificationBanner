@@ -3,12 +3,12 @@ Classification Banner - Main Entry Point
 """
 
 import sys
-from ClassificationBanner.banner import ClassificationBanner
+import classification_banner as cb
 
 
 def main():
     """Main entry point"""
-    banner = ClassificationBanner()
+    banner = cb.banner.ClassificationBanner
 
     if banner.settings.enabled:
         banner.run()

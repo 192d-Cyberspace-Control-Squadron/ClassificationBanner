@@ -2,7 +2,8 @@
 Classification Banner Package
 """
 
-from ClassificationBanner.banner import ClassificationBanner
-
 __version__ = "1.3.0"
-__all__ = ["ClassificationBanner"]
+
+__all__ = ["main"]
+
+from . import main
