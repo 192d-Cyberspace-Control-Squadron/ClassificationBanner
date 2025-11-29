@@ -77,7 +77,7 @@
           </item>
           <item displayName="$(string.ENUM_Classification_TopSecretSCI)">
             <value>
-              <string>TOP SECRET//HCS-P/SI/TK//NOFORN</string>
+              <string>SCI</string>
             </value>
           </item>
           <item displayName="$(string.ENUM_Classification_Custom)">
