@@ -1,0 +1,198 @@
+"""
+Banner window creation and management
+"""
+
+import tkinter as tk
+from tkinter import font
+from typing import Optional
+from .appbar import register_appbar_for_window, remove_appbar_for_window
+from .constants import ABE_TOP, INNER_PADX, INNER_PADY, KEEP_ON_TOP_INTERVAL
+
+
+class BannerWindow:
+    """Manages a single banner window"""
+
+    def __init__(self, monitor, settings, system_info_text: str = ""):
+        self.monitor = monitor
+        self.settings = settings
+        self.system_info_text = system_info_text
+        self.window: tk.Tk | None = None
+        self.hwnd = None
+
+        self._create_window()
+
+    def _create_window(self):
+        """Create the banner window"""
+        self.window = tk.Tk()
+
+        # Position at top of monitor
+        self.window.geometry(
+            f"{self.monitor.width}x{self.settings.banner_height}"
+            f"+{self.monitor.x}+{self.monitor.y}"
+        )
+
+        # Remove window decorations
+        self.window.overrideredirect(True)
+
+        # Set background color
+        self.window.configure(bg=self.settings.bg_color)
+
+        # Always on top
+        self.window.attributes("-topmost", True)
+
+        # Register as AppBar
+        self.window.update_idletasks()
+        self.hwnd = self.window.winfo_id()
+
+        register_appbar_for_window(
+            self.hwnd,
+            self.monitor.x,
+            self.monitor.y,
+            self.monitor.width,
+            self.settings.banner_height,
+            edge=ABE_TOP,
+        )
+
+        # Create UI
+        self._create_ui()
+
+        # Keep on top
+        self._keep_on_top()
+
+        # Cleanup on close
+        self.window.protocol("WM_DELETE_WINDOW", self._on_close)
+
+    def _create_ui(self):
+        """Create the banner UI elements"""
+        # Main frame
+        main_frame = tk.Frame(self.window, bg=self.settings.bg_color)
+        main_frame.pack(fill=tk.BOTH, expand=True)
+
+        # Configure grid
+        main_frame.grid_rowconfigure(0, weight=1)
+        main_frame.grid_columnconfigure(0, weight=0)  # left
+        main_frame.grid_columnconfigure(1, weight=1)  # center
+        main_frame.grid_columnconfigure(2, weight=0)  # right
+
+        # Create font
+        label_font = font.Font(
+            family=self.settings.font_family,
+            size=self.settings.font_size,
+            weight="bold",
+        )
+
+        # Left side: System information
+        if self.system_info_text:
+            self._create_left_panel(main_frame, label_font)
+
+        # Center: Classification
+        self._create_center_panel(main_frame, label_font)
+
+        # Right side: FPCON/CPCON
+        if self.settings.fpcon or self.settings.cpcon:
+            self._create_right_panel(main_frame, label_font)
+
+    def _create_left_panel(self, parent, label_font):
+        """Create left panel with system info"""
+        left_frame = tk.Frame(parent, bg=self.settings.bg_color)
+        left_frame.grid(
+            row=0,
+            column=0,
+            sticky="nsw",
+            padx=(INNER_PADX, INNER_PADX),
+            pady=INNER_PADY,
+        )
+
+        sys_info_label = tk.Label(
+            left_frame,
+            text=self.system_info_text,
+            bg=self.settings.bg_color,
+            fg=self.settings.fg_color,
+            font=label_font,
+            anchor="w",
+        )
+        sys_info_label.pack(fill=tk.BOTH, expand=True)
+
+    def _create_center_panel(self, parent, label_font):
+        """Create center panel with classification"""
+        center_frame = tk.Frame(parent, bg=self.settings.bg_color)
+        center_frame.grid(
+            row=0,
+            column=1,
+            sticky="nsew",
+            padx=INNER_PADX,
+            pady=INNER_PADY,
+        )
+
+        classification_label = tk.Label(
+            center_frame,
+            text=self.settings.classification,
+            bg=self.settings.bg_color,
+            fg=self.settings.fg_color,
+            font=label_font,
+            anchor="center",
+        )
+        classification_label.pack(expand=True, fill=tk.BOTH)
+
+    def _create_right_panel(self, parent, label_font):
+        """Create right panel with FPCON/CPCON"""
+        right_frame = tk.Frame(parent, bg=self.settings.bg_color)
+        right_frame.grid(
+            row=0,
+            column=2,
+            sticky="nse",
+            padx=(INNER_PADX, INNER_PADX),
+            pady=INNER_PADY,
+        )
+
+        # Build text
+        right_text_parts = []
+        if self.settings.fpcon:
+            right_text_parts.append(f"FPCON: {self.settings.fpcon}")
+        if self.settings.cpcon:
+            right_text_parts.append(f"CPCON: {self.settings.cpcon}")
+
+        right_text = " | ".join(right_text_parts)
+
+        right_label = tk.Label(
+            right_frame,
+            text=right_text,
+            bg=self.settings.bg_color,
+            fg=self.settings.fg_color,
+            font=label_font,
+            anchor="e",
+        )
+        right_label.pack(side=tk.RIGHT, expand=True, fill=tk.BOTH)
+
+    def _keep_on_top(self):
+        """Keep window on top"""
+        try:
+            self.window.attributes("-topmost", True)
+            self.window.lift()
+            self.window.after(KEEP_ON_TOP_INTERVAL, self._keep_on_top)
+        except:
+            pass
+
+    def _on_close(self):
+        """Handle window close"""
+        try:
+            remove_appbar_for_window(self.hwnd)
+        except:
+            pass
+        self.window.destroy()
+
+    def destroy(self):
+        """Destroy the window"""
+        try:
+            remove_appbar_for_window(self.hwnd)
+        except:
+            pass
+
+        try:
+            self.window.destroy()
+        except:
+            pass
+
+    def get_window(self):
+        """Get the Tk window object"""
+        return self.window
