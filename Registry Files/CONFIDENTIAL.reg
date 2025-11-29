@@ -1,0 +1,15 @@
+Windows Registry Editor Version 5.00
+
+; Classification Banner - CONFIDENTIAL Configuration
+; Import this file to configure the banner for CONFIDENTIAL
+
+[HKEY_CURRENT_USER\SOFTWARE\ClassificationBanner]
+"Classification"="CONFIDENTIAL"
+"Enabled"=dword:00000001
+"FPCON"="Alpha"
+"CYBERCON"="1"
+
+; System Information Display Flags (1 = show, 0 = hide)
+"ShowHostname"=dword:00000001
+"ShowUsername"=dword:00000001
+"ShowIPAddress"=dword:00000001

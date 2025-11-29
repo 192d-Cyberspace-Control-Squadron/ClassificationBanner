@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+; Classification Banner - DISABLE
+; Import this file to disable the classification banner
+
+[HKEY_CURRENT_USER\SOFTWARE\ClassificationBanner]
+"Enabled"=dword:00000000
