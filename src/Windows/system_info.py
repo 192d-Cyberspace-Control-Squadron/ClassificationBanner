@@ -5,18 +5,18 @@ System information gathering for Classification Banner
 import socket
 import platform
 import os
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
 
 class SystemInfoGatherer:
     """Gathers system information for display"""
     
     def __init__(self):
-        self.info = {}
+        self.info: Dict[str,str] = {}
     
     def gather_all(self, show_flags: Dict[str, bool], group_id: Optional[str] = None) -> Dict[str, str]:
         """Gather all requested system information"""
-        info = {}
+        info: Dict[str,str] = {}
         
         if show_flags.get("show_hostname", False):
             info["hostname"] = self._get_hostname()
@@ -64,13 +64,13 @@ class SystemInfoGatherer:
     def _get_ip_address(self) -> str:
         """Get primary IP address"""
         try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s: socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.settimeout(0.1)
             try:
                 s.connect(("10.254.254.254", 1))
-                ip = s.getsockname()[0]
+                ip: str = s.getsockname()[0]
             except:
-                ip = socket.gethostbyname(socket.gethostname())
+                ip: str = socket.gethostbyname(socket.gethostname())
             finally:
                 s.close()
             return ip
@@ -79,7 +79,7 @@ class SystemInfoGatherer:
     
     def build_display_text(self, info: Dict[str, str]) -> str:
         """Build formatted display text from system info"""
-        parts = []
+        parts: List[str] = []
         
         if "hostname" in info and info["hostname"]:
             parts.append(info["hostname"])
