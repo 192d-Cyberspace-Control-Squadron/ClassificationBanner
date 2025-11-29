@@ -125,7 +125,7 @@ class BannerWindow:
 
         classification_label = tk.Label(
             center_frame,
-            text=self.settings.classification,
+            text=self.settings.classification_text,
             bg=self.settings.bg_color,
             fg=self.settings.fg_color,
             font=label_font,
