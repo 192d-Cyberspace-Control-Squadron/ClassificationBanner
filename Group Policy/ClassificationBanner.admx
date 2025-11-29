@@ -122,35 +122,35 @@
       </elements>
     </policy>
 
-    <!-- CYBERCON Level -->
-    <policy name="POL_CYBERCON" class="Machine" displayName="$(string.POL_CYBERCON)"
-      explainText="$(string.POL_CYBERCON_Help)" presentation="$(presentation.POL_CYBERCON)"
+    <!-- CPCON Level -->
+    <policy name="POL_CPCON" class="Machine" displayName="$(string.POL_CPCON)"
+      explainText="$(string.POL_CPCON_Help)" presentation="$(presentation.POL_CPCON)"
       key="SOFTWARE\ClassificationBanner">
       <parentCategory ref="CAT_ClassificationBanner_ThreatLevels" />
       <supportedOn ref="windows:SUPPORTED_Windows10" />
       <elements>
-        <enum id="ENUM_CYBERCON" valueName="CYBERCON">
-          <item displayName="$(string.ENUM_CYBERCON_1)">
+        <enum id="ENUM_CPCON" valueName="CPCON">
+          <item displayName="$(string.ENUM_CPCON_1)">
             <value>
               <string>1</string>
             </value>
           </item>
-          <item displayName="$(string.ENUM_CYBERCON_2)">
+          <item displayName="$(string.ENUM_CPCON_2)">
             <value>
               <string>2</string>
             </value>
           </item>
-          <item displayName="$(string.ENUM_CYBERCON_3)">
+          <item displayName="$(string.ENUM_CPCON_3)">
             <value>
               <string>3</string>
             </value>
           </item>
-          <item displayName="$(string.ENUM_CYBERCON_4)">
+          <item displayName="$(string.ENUM_CPCON_4)">
             <value>
               <string>4</string>
             </value>
           </item>
-          <item displayName="$(string.ENUM_CYBERCON_5)">
+          <item displayName="$(string.ENUM_CPCON_5)">
             <value>
               <string>5</string>
             </value>

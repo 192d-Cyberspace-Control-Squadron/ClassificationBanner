@@ -10,7 +10,7 @@
       <string id="CAT_ClassificationBanner">Classification Banner</string>
       <string id="CAT_ClassificationBanner_Display">Display Settings</string>
       <string id="CAT_ClassificationBanner_SystemInfo">System Information</string>
-      <string id="CAT_ClassificationBanner_ThreatLevels">Threat Levels (FPCON/CYBERCON)</string>
+      <string id="CAT_ClassificationBanner_ThreatLevels">Threat Levels (FPCON/CPCON)</string>
       <string id="CAT_ClassificationBanner_Appearance">Appearance</string>
 
       <!-- Banner Enabled Policy -->
@@ -72,28 +72,28 @@
       <string id="ENUM_FPCON_Charlie">Charlie</string>
       <string id="ENUM_FPCON_Delta">Delta</string>
 
-      <!-- CYBERCON Policy -->
-      <string id="POL_CYBERCON">Set Cyber Condition (CYBERCON)</string>
-      <string id="POL_CYBERCON_Help">This policy setting specifies the Cyber Condition (CYBERCON)
+      <!-- CPCON Policy -->
+      <string id="POL_CPCON">Set Cyber Condition (CPCON)</string>
+      <string id="POL_CPCON_Help">This policy setting specifies the Cyberspace Protection Condition (CPCON)
         level to display on the banner.
 
-        CYBERCON Levels:
+        CPCON Levels:
         - 1: Normal - Routine network operations
         - 2: Guarded - Increased awareness, minor threats detected
         - 3: Elevated - Heightened alert, specific threats identified
         - 4: Severe - Significant cyber threat or attack in progress
         - 5: Critical - Major cyber attack, severe network compromise
 
-        The CYBERCON level will be displayed in the right corner of the banner as "CYBERCON:
+        The CPCON level will be displayed in the right corner of the banner as "CPCON:
         [LEVEL]".
 
-        If you do not configure this policy setting, CYBERCON will not be displayed.</string>
+        If you do not configure this policy setting, CPCON will not be displayed.</string>
 
-      <string id="ENUM_CYBERCON_1">1 - Normal</string>
-      <string id="ENUM_CYBERCON_2">2 - Guarded</string>
-      <string id="ENUM_CYBERCON_3">3 - Elevated</string>
-      <string id="ENUM_CYBERCON_4">4 - Severe</string>
-      <string id="ENUM_CYBERCON_5">5 - Critical</string>
+      <string id="ENUM_CPCON_1">1 - Normal</string>
+      <string id="ENUM_CPCON_2">2 - Guarded</string>
+      <string id="ENUM_CPCON_3">3 - Elevated</string>
+      <string id="ENUM_CPCON_4">4 - Severe</string>
+      <string id="ENUM_CPCON_5">5 - Critical</string>
 
       <!-- System Information Policies -->
       <string id="POL_ShowHostname">Display Hostname</string>
@@ -201,8 +201,8 @@
         <dropdownList refId="ENUM_FPCON" defaultItem="0">FPCON Level:</dropdownList>
       </presentation>
 
-      <presentation id="POL_CYBERCON">
-        <dropdownList refId="ENUM_CYBERCON" defaultItem="0">CYBERCON Level:</dropdownList>
+      <presentation id="POL_CPCON">
+        <dropdownList refId="ENUM_CPCON" defaultItem="0">CPCON Level:</dropdownList>
       </presentation>
 
       <presentation id="POL_ShowGroupID">
