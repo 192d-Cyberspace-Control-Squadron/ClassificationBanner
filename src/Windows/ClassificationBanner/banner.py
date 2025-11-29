@@ -28,6 +28,9 @@ class ClassificationBanner:
         # Gather system info if needed
         if self.settings.needs_system_info():
             self._gather_system_info()
+        
+        # Generate Classification Text
+        self.settings.get_classification_text()
 
         # Create banners if enabled
         if self.settings.enabled:
@@ -70,6 +73,9 @@ class ClassificationBanner:
         # Regather system info if needed
         if self.settings.needs_system_info():
             self._gather_system_info()
+
+        # Regenerate Classification Text
+        self.settings.get_classification_text()
 
         # Create new banners
         self._create_banners()

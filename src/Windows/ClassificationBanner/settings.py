@@ -33,6 +33,7 @@ class BannerSettings:
         self.enabled: int = DEFAULT_ENABLED
         self.caveats: str = DEFAULT_CAVEATS
         self.dissemenation_controls: str = DEFAULT_DISSEMINATION_CONTROLS
+        self.classification_text: str = DEFAULT_CLASSIFICATION
 
         # Threat levels
         self.fpcon: str = DEFAULT_FPCON
@@ -162,3 +163,18 @@ class BannerSettings:
             "show_ip_address": self.show_ip_address,
             "show_group_id": self.show_group_id,
         }
+
+    def get_classification_text(self) -> None:
+        """Generates the classification text for the center banner"""
+        classification = ""
+        if self.settings.classification is "SCI":
+            classification = classification + f"TOP SECRET"
+        else:
+            classification = classification + f"{self.settings.classification}"
+        
+        if self.settings.caveats:
+            classification = classification + fr"//{self.settings.caveats}"
+        if self.settings.dissemination_controls:
+            classification = classification + fr"//{self.settings.dissemination_controls}"
+        
+        self.classification_text = classification
