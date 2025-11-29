@@ -135,7 +135,6 @@ class ClassificationBanner:
         self.show_username: bool = False
         self.show_windows_version: bool = False
         self.show_ip_address: bool = False
-        self.show_serial_number: bool = False
         self.show_group_id: bool = False
 
         # Common classification colors (fallback)
@@ -151,8 +150,17 @@ class ClassificationBanner:
 
         self.windows = []
 
+        # Store previous settings to detect changes
+        self.previous_settings: dict[str, str | bool | int] = {}
+
+        # Timer for registry check (every 60 seconds = 60000 milliseconds)
+        self.check_interval = 60000  # 1 minute in milliseconds
+
         # Load settings from registry
         self.load_registry_settings()
+
+        # Store initial settings
+        self.store_current_settings()
 
         # Gather system information if any display flags are enabled
         if any(
@@ -169,6 +177,138 @@ class ClassificationBanner:
         # Only create banners if enabled
         if self.enabled:
             self.create_banners()
+            # Start registry monitoring
+            self.schedule_registry_check()
+
+    def store_current_settings(self):
+        """Store current settings for comparison"""
+        self.previous_settings = {
+            "classification": self.classification,
+            "bg_color": self.bg_color,
+            "fg_color": self.fg_color,
+            "banner_height": self.banner_height,
+            "font_size": self.font_size,
+            "font_family": self.font_family,
+            "enabled": self.enabled,
+            "fpcon": self.fpcon,
+            "cybercon": self.cybercon,
+            "show_hostname": self.show_hostname,
+            "show_username": self.show_username,
+            "show_windows_version": self.show_windows_version,
+            "show_ip_address": self.show_ip_address,
+            "show_group_id": self.show_group_id,
+            "group_id": self.group_id,
+        }
+
+    def settings_changed(self):
+        """Check if any settings have changed"""
+        current: dict[str, str | bool | int] = {
+            "classification": self.classification,
+            "bg_color": self.bg_color,
+            "fg_color": self.fg_color,
+            "banner_height": self.banner_height,
+            "font_size": self.font_size,
+            "font_family": self.font_family,
+            "enabled": self.enabled,
+            "fpcon": self.fpcon,
+            "cybercon": self.cybercon,
+            "show_hostname": self.show_hostname,
+            "show_username": self.show_username,
+            "show_windows_version": self.show_windows_version,
+            "show_ip_address": self.show_ip_address,
+            "show_group_id": self.show_group_id,
+            "group_id": self.group_id,
+        }
+
+        return current != self.previous_settings
+
+    def check_registry_changes(self):
+        """Check registry for changes and update banner if needed"""
+        try:
+            # Reload settings from registry
+            self.load_registry_settings()
+
+            # Check if settings changed
+            if self.settings_changed():
+                print("Registry settings changed - updating banner...")
+
+                # If banner was disabled, close everything
+                if not self.enabled:
+                    print("Banner disabled - closing...")
+                    self.close_all_windows()
+                    sys.exit(0)
+
+                # Re-gather system info if flags changed
+                if any(
+                    [
+                        self.show_hostname,
+                        self.show_username,
+                        self.show_windows_version,
+                        self.show_ip_address,
+                        self.show_group_id,
+                    ]
+                ):
+                    self.gather_system_info()
+
+                # Recreate banners with new settings
+                self.recreate_banners()
+
+                # Update stored settings
+                self.store_current_settings()
+
+                print("Banner updated successfully")
+
+            # Schedule next check
+            self.schedule_registry_check()
+
+        except Exception as e:
+            print(f"Error checking registry changes: {e}")
+            # Continue checking even if there's an error
+            self.schedule_registry_check()
+
+    def schedule_registry_check(self) -> None:
+        """Schedule the next registry check"""
+        if self.windows:
+            # Use the first window's after method to schedule the check
+            self.windows[0].after(self.check_interval, self.check_registry_changes)
+
+    def recreate_banners(self):
+        """Destroy existing banners and create new ones with updated settings"""
+        # Close all existing windows
+        for window in self.windows:
+            try:
+                # Remove AppBar registration
+                hwnd = window.winfo_id()
+                remove_appbar_for_window(hwnd)
+            except:
+                pass
+
+            try:
+                window.destroy()
+            except:
+                pass
+
+        # Clear the windows list
+        self.windows = []
+
+        # Create new banners with updated settings
+        self.create_banners()
+
+    def close_all_windows(self):
+        """Close all banner windows"""
+        for window in self.windows:
+            try:
+                hwnd = window.winfo_id()
+                remove_appbar_for_window(hwnd)
+            except:
+                pass
+
+            try:
+                window.destroy()
+            except:
+                pass
+
+        self.windows = []
 
     def gather_system_info(self) -> None:
         """Gather system information for display"""
