@@ -114,7 +114,7 @@ class ClassificationBanner:
             # Schedule next check
             self._schedule_registry_check()
 
-        except Exception as e:
+        except SystemError as e:
             print(f"Error checking registry changes: {e}")
             # Continue checking even on error
             self._schedule_registry_check()
