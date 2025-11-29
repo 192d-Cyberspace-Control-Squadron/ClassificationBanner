@@ -34,13 +34,13 @@ REGISTRY_PATHS = [
 
 # Classification color schemes
 COLOR_SCHEMES = {
-    "UNCONFIGURED": {"bg": "#FFFFFF", "fg": "#000000"},
-    "UNCLASSIFIED": {"bg": "#00FF00", "fg": "#000000"},
-    "CUI": {"bg": "#502B85", "fg": "#FFFFFF"},
-    "CONFIDENTIAL": {"bg": "#0000FF", "fg": "#FFFFFF"},
-    "SECRET": {"bg": "#FF0000", "fg": "#000000"},
-    "TOP SECRET": {"bg": "#FF8C00", "fg": "#000000"},
-    "TOP SECRET//HCS-P/SI/TK//NOFORN": {"bg": "#FFFF00", "fg": "#000000"},
+    "UNCONFIGURED": {"bg": "#FFFFFF", "fg": "#000000", "text": "UNCONFIGURED", "caveats":"", "dc": ""},
+    "UNCLASSIFIED": {"bg": "#00FF00", "fg": "#000000", "text": "UNCLASSIFIED", "caveats":"", "dc": ""},
+    "CUI": {"bg": "#502B85", "fg": "#FFFFFF", "text": "CUI", "caveats":"", "dc": ""},
+    "CONFIDENTIAL": {"bg": "#0000FF", "fg": "#FFFFFF", "text": "CONFIDENTIAL", "caveats":"", "dc": ""},
+    "SECRET": {"bg": "#FF0000", "fg": "#000000", "text": "SECRET", "caveats":"", "dc": ""},
+    "TOP SECRET": {"bg": "#FF8C00", "fg": "#000000", "text": "TOP SECRET", "caveats":"", "dc": ""},
+    "SCI": {"bg": "#FFFF00", "fg": "#000000", "text": "TOP SECRET", "caveats":"HCS/SI/TK", "dc": "NOFORN"},
 }
 
 # UI layout settings
