@@ -110,7 +110,7 @@ class ClassificationBanner:
             - FontFamily (REG_SZ): Font family name (default: Arial)
             - Enabled (REG_DWORD): 1 to show banner, 0 to hide (default: 1)
             - FPCON (REG_SZ): Force Protection Condition (Alpha, Bravo, Charlie, Delta)
-            - CYBERCON (REG_SZ): Cyber Condition (1, 2, 3, 4, 5)
+            - CPCON (REG_SZ): Cyber Condition (1, 2, 3, 4, 5)
         """
         # Default values
         self.classification: str = "UNCONFIGURED"
@@ -121,7 +121,7 @@ class ClassificationBanner:
         self.font_family: str = "Arial"
         self.enabled: int = 1
         self.fpcon: str = "Alpha"
-        self.cybercon: str = "1"
+        self.cpcon: str = "1"
 
         # System information
         self.hostname: str = ""
@@ -191,7 +191,7 @@ class ClassificationBanner:
             "font_family": self.font_family,
             "enabled": self.enabled,
             "fpcon": self.fpcon,
-            "cybercon": self.cybercon,
+            "cpcon": self.cpcon,
             "show_hostname": self.show_hostname,
             "show_username": self.show_username,
             "show_windows_version": self.show_windows_version,
@@ -211,7 +211,7 @@ class ClassificationBanner:
             "font_family": self.font_family,
             "enabled": self.enabled,
             "fpcon": self.fpcon,
-            "cybercon": self.cybercon,
+            "cpcon": self.cpcon,
             "show_hostname": self.show_hostname,
             "show_username": self.show_username,
             "show_windows_version": self.show_windows_version,
@@ -453,11 +453,11 @@ class ClassificationBanner:
                 except FileNotFoundError:
                     pass
 
-                # Read CYBERCON
+                # Read cpcon
                 try:
-                    value, _ = winreg.QueryValueEx(key, "CYBERCON")
+                    value, _ = winreg.QueryValueEx(key, "CPCON")
                     if value:
-                        self.cybercon = str(value)
+                        self.cpcon = str(value)
                 except FileNotFoundError:
                     pass
 
@@ -624,8 +624,8 @@ class ClassificationBanner:
         )
         classification_label.pack(expand=True, fill=tk.BOTH)
 
-        # Right side: FPCON and CYBERCON (if set)
-        if self.fpcon or self.cybercon:
+        # Right side: FPCON and CPCON (if set)
+        if self.fpcon or self.cpcon:
             right_frame = tk.Frame(main_frame, bg=self.bg_color)
             right_frame.grid(
                 row=0,
@@ -639,8 +639,8 @@ class ClassificationBanner:
             right_text_parts = []
             if self.fpcon:
                 right_text_parts.append(f"FPCON: {self.fpcon}")
-            if self.cybercon:
-                right_text_parts.append(f"CYBERCON: {self.cybercon}")
+            if self.cpcon:
+                right_text_parts.append(f"CPCON: {self.cpcon}")
 
             right_text = " | ".join(right_text_parts)
 
