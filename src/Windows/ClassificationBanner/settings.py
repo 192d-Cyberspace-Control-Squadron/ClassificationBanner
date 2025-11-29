@@ -32,7 +32,7 @@ class BannerSettings:
         self.font_family: str = DEFAULT_FONT_FAMILY
         self.enabled: int = DEFAULT_ENABLED
         self.caveats: str = DEFAULT_CAVEATS
-        self.dissemenation_controls: DEFAULT_DISSEMENATION_CONTROLS
+        self.dissemenation_controls: str = DEFAULT_DISSEMENATION_CONTROLS
 
         # Threat levels
         self.fpcon: str = DEFAULT_FPCON
