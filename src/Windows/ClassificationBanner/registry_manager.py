@@ -52,7 +52,7 @@ class RegistryManager:
             settings[name] = self._read_string(key, name)
 
         # Integer values
-        for name in ["BannerHeight", "FontSize", "Enabled"]:
+        for name in ["Enabled"]:
             settings[name] = self._read_int(key, name)
 
         # Boolean values (stored as DWORD)
@@ -67,7 +67,7 @@ class RegistryManager:
 
         return settings
 
-    def _read_string(self, key, name: str) -> Optional[str]:
+    def _read_string(self, key: winreg.HKEYType, name: str) -> Optional[str]:
         """Read a string value from registry"""
         try:
             value, _ = winreg.QueryValueEx(key, name)
@@ -75,7 +75,7 @@ class RegistryManager:
         except FileNotFoundError:
             return None
 
-    def _read_int(self, key, name: str) -> Optional[int]:
+    def _read_int(self, key: winreg.HKEYType, name: str) -> Optional[int]:
         """Read an integer value from registry"""
         try:
             value, _ = winreg.QueryValueEx(key, name)
@@ -83,7 +83,7 @@ class RegistryManager:
         except FileNotFoundError:
             return None
 
-    def _read_bool(self, key, name: str) -> Optional[bool]:
+    def _read_bool(self, key: winreg.HKEYType, name: str) -> Optional[bool]:
         """Read a boolean value from registry (stored as DWORD)"""
         try:
             value, _ = winreg.QueryValueEx(key, name)
