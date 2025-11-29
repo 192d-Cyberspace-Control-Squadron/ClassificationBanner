@@ -31,8 +31,8 @@ class BannerSettings:
         self.font_size: int = DEFAULT_FONT_SIZE
         self.font_family: str = DEFAULT_FONT_FAMILY
         self.enabled: int = DEFAULT_ENABLED
-        self.caveats: str = DEFAULT_CAVEATS
-        self.dissemenation_controls: str = DEFAULT_DISSEMINATION_CONTROLS
+        self.caveats: str | None = DEFAULT_CAVEATS
+        self.dissemination_controls: str | None = DEFAULT_DISSEMINATION_CONTROLS
         self.classification_text: str = DEFAULT_CLASSIFICATION
 
         # Threat levels
@@ -53,7 +53,7 @@ class BannerSettings:
         self.check_interval: int = DEFAULT_CHECK_INTERVAL
 
         # Storage for change detection
-        self.previous_settings: Dict[str,str|bool|int] = {}
+        self.previous_settings: Dict[str, str | bool | int] = {}
 
     def update_from_registry(self, registry_settings: Dict[str, Any]) -> None:
         """Update settings from registry values"""
@@ -75,12 +75,12 @@ class BannerSettings:
 
         if registry_settings.get("GroupID") is not None:
             self.group_id = registry_settings["GroupID"]
-        
+
         if registry_settings.get("Caveats") is not None:
-            self.group_id = registry_settings["Caveats"]
+            self.caveats = registry_settings["Caveats"]
 
         if registry_settings.get("DisseminationControls") is not None:
-            self.group_id = registry_settings["DisseminationControls"]
+            self.dissemination_controls = registry_settings["DisseminationControls"]
 
         # Integer values
         if registry_settings.get("Enabled") is not None:
@@ -104,7 +104,7 @@ class BannerSettings:
 
     def store_current_state(self) -> None:
         """Store current settings for change detection"""
-        self.previous_settings: Dict[str,str|bool|int] = {
+        self.previous_settings: Dict[str, str | bool | int] = {
             "classification": self.classification,
             "bg_color": self.bg_color,
             "fg_color": self.fg_color,
@@ -112,7 +112,7 @@ class BannerSettings:
             "fpcon": self.fpcon,
             "cpcon": self.cpcon,
             "caveats": self.caveats,
-            "dissemination_controls": self.dissemenation_controls,
+            "dissemination_controls": self.dissemination_controls,
             "show_hostname": self.show_hostname,
             "show_username": self.show_username,
             "show_windows_version": self.show_windows_version,
@@ -123,12 +123,12 @@ class BannerSettings:
 
     def has_changed(self) -> bool:
         """Check if settings have changed since last store"""
-        current: Dict[str,str|bool|int] = {
+        current: Dict[str, str | bool | int | None] = {
             "classification": self.classification,
             "bg_color": self.bg_color,
             "fg_color": self.fg_color,
             "caveats": self.caveats,
-            "dissemination_controls": self.dissemenation_controls,
+            "dissemination_controls": self.dissemination_controls,
             "enabled": self.enabled,
             "fpcon": self.fpcon,
             "cpcon": self.cpcon,
@@ -167,14 +167,15 @@ class BannerSettings:
     def get_classification_text(self) -> None:
         """Generates the classification text for the center banner"""
         classification = ""
-        if self.settings.classification is "SCI":
-            classification = classification + f"TOP SECRET"
+        if self.classification == "SCI":
+            classification = classification + "TOP SECRET"
         else:
-            classification = classification + f"{self.settings.classification}"
-        
-        if self.settings.caveats:
-            classification = classification + fr"//{self.settings.caveats}"
-        if self.settings.dissemination_controls:
-            classification = classification + fr"//{self.settings.dissemination_controls}"
-        
+            classification = classification + f"{self.classification}"
+
+        if self.caveats:
+            classification = classification + fr"//{self.caveats}"
+        if self.dissemination_controls:
+            classification = classification + \
+                fr"//{self.dissemination_controls}"
+
         self.classification_text = classification
