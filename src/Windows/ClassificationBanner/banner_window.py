@@ -4,7 +4,6 @@ Banner window creation and management
 
 import tkinter as tk
 from tkinter import font
-from typing import Optional
 from .appbar import register_appbar_for_window, remove_appbar_for_window
 from .constants import ABE_TOP, INNER_PADX, INNER_PADY, KEEP_ON_TOP_INTERVAL
 

@@ -4,6 +4,7 @@ Windows AppBar management for Classification Banner
 
 import ctypes
 from ctypes import wintypes
+from typing import Literal, Any
 from .constants import ABM_NEW, ABM_REMOVE, ABM_SETPOS, ABE_TOP
 
 
@@ -31,7 +32,7 @@ _shell32 = ctypes.windll.shell32
 _user32 = ctypes.windll.user32
 
 
-def register_appbar_for_window(hwnd, x, y, width, height, edge=ABE_TOP) -> APPBARDATA:
+def register_appbar_for_window(hwnd: Any, x: int, y: int, width: int, height: int, edge: Literal[1]=ABE_TOP) -> APPBARDATA:
     """Register/position a window as an AppBar so maximized windows avoid it."""
     abd = APPBARDATA()
     abd.cbSize = ctypes.sizeof(APPBARDATA)
@@ -59,7 +60,7 @@ def register_appbar_for_window(hwnd, x, y, width, height, edge=ABE_TOP) -> APPBA
     return abd
 
 
-def remove_appbar_for_window(hwnd) -> None:
+def remove_appbar_for_window(hwnd: Any) -> None:
     """Unregister the AppBar."""
     abd = APPBARDATA()
     abd.cbSize = ctypes.sizeof(APPBARDATA)

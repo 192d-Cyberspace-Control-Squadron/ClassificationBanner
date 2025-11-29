@@ -3,7 +3,7 @@ Settings management for Classification Banner
 """
 
 from typing import Dict, Any
-from Windows.constants import (
+from .constants import (
     DEFAULT_CLASSIFICATION,
     DEFAULT_BG_COLOR,
     DEFAULT_FG_COLOR,
@@ -14,7 +14,6 @@ from Windows.constants import (
     DEFAULT_FPCON,
     DEFAULT_CPCON,
     DEFAULT_CHECK_INTERVAL,
-    COLOR_SCHEMES,
 )
 
 
@@ -49,7 +48,7 @@ class BannerSettings:
         self.check_interval: int = DEFAULT_CHECK_INTERVAL
 
         # Storage for change detection
-        self.previous_settings: Dict[str, Any] = {}
+        self.previous_settings: Dict[str,str|bool|int] = {}
 
     def update_from_registry(self, registry_settings: Dict[str, Any]) -> None:
         """Update settings from registry values"""
@@ -103,7 +102,7 @@ class BannerSettings:
 
     def store_current_state(self) -> None:
         """Store current settings for change detection"""
-        self.previous_settings = {
+        self.previous_settings: Dict[str,str|bool|int] = {
             "classification": self.classification,
             "bg_color": self.bg_color,
             "fg_color": self.fg_color,
@@ -123,7 +122,7 @@ class BannerSettings:
 
     def has_changed(self) -> bool:
         """Check if settings have changed since last store"""
-        current = {
+        current: Dict[str,str|bool|int] = {
             "classification": self.classification,
             "bg_color": self.bg_color,
             "fg_color": self.fg_color,

@@ -11,7 +11,7 @@ class RegistryManager:
     """Handles reading configuration from Windows Registry"""
 
     def __init__(self):
-        self.registry_locations: List[Tuple[str, str]] = [
+        self.registry_locations: List[Tuple[int, str]] = [
             (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\ClassificationBanner"),
             (winreg.HKEY_CURRENT_USER, r"SOFTWARE\ClassificationBanner"),
         ]

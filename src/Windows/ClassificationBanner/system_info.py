@@ -64,7 +64,7 @@ class SystemInfoGatherer:
     def _get_ip_address(self) -> str:
         """Get primary IP address"""
         try:
-            s: socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.settimeout(0.1)
             try:
                 s.connect(("10.254.254.254", 1))
