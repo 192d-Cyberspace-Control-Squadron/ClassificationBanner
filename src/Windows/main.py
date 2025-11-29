@@ -3,7 +3,7 @@ Classification Banner - Main Entry Point
 """
 
 import sys
-from .banner import ClassificationBanner
+from ClassificationBanner.banner import ClassificationBanner
 
 
 def main():
