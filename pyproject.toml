@@ -10,5 +10,7 @@ license = { file = "LICENSE" }
 
 [dependency-groups]
 dev = [
+    "flake8>=7.3.0",
     "pytest>=9.0.1",
+    "pytest-cov>=7.0.0",
 ]
