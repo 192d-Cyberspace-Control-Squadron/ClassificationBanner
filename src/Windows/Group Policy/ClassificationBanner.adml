@@ -36,7 +36,7 @@
         - CONFIDENTIAL (Blue background, White text)
         - SECRET (Red background, Black text)
         - TOP SECRET (Orange background, Black text)
-        - TOP SECRET//SCI (Yellow background, Black text)
+        - SCI (Yellow background, Black text)
         - CUSTOM (Use custom text from the field below)
 
         If CUSTOM is selected, enter the custom classification text in the "Custom Classification
@@ -49,8 +49,27 @@
       <string id="ENUM_Classification_Confidential">CONFIDENTIAL</string>
       <string id="ENUM_Classification_Secret">SECRET</string>
       <string id="ENUM_Classification_TopSecret">TOP SECRET</string>
-      <string id="ENUM_Classification_TopSecretSCI">TOP SECRET//HCS-P/SI/TK//NOFORN</string>
+      <string id="ENUM_Classification_TopSecretSCI">SCI</string>
       <string id="ENUM_Classification_Custom">CUSTOM (specify below)</string>
+
+      <!-- Caveats Policy -->
+      <string id="POL_Caveats">Set Caveats</string>
+      <string id="POL_Caveats_Help">This policy setting specifies the Caveats
+        to display on the banner.
+
+        Enter the Caveats text in the "Caveats Text" field.
+
+        If you do not configure this policy setting, the banner will not display Caveats.</string>
+
+      <!-- DisseminationControls Level Policy -->
+      <string id="POL_DisseminationControls">Set Dissemination Controls</string>
+      <string id="POL_DisseminationControls_Help">This policy setting specifies the Dissemination Controls
+        to display on the banner.
+
+        Enter the Dissemination Controls text in the "Dissemination Controls
+        Text" field.
+
+        If you do not configure this policy setting, the banner will not display Dissemination Controls.</string>
 
       <!-- FPCON Policy -->
       <string id="POL_FPCON">Set Force Protection Condition (FPCON)</string>
@@ -194,6 +213,20 @@
         <textBox refId="TXT_CustomClassification">
           <label>Custom Classification Text (if CUSTOM selected above):</label>
           <defaultValue>CUSTOM CLASSIFICATION</defaultValue>
+        </textBox>
+      </presentation>
+
+      <presentation id="POL_Caveats">
+        <textBox refId="TXT_Caveats">
+          <label>Caveats:</label>
+          <defaultValue>HCS/SI/TK</defaultValue>
+        </textBox>
+      </presentation>
+
+      <presentation id="POL_DisseminationControls">
+        <textBox refId="TXT_DisseminationControls">
+          <label>DisseminationControls:</label>
+          <defaultValue>NOFORN</defaultValue>
         </textBox>
       </presentation>
 

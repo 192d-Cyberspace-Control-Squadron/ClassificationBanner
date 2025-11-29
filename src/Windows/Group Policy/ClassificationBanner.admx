@@ -90,6 +90,28 @@
       </elements>
     </policy>
 
+    <!-- Caveats -->
+    <policy name="POL_Caveats" class="Machine" displayName="$(string.POL_Caveats)"
+      explainText="$(string.POL_Caveats_Help)"
+      presentation="$(presentation.POL_Caveats)" key="SOFTWARE\ClassificationBanner">
+      <parentCategory ref="CAT_ClassificationBanner_Display" />
+      <supportedOn ref="windows:SUPPORTED_Windows10" />
+      <elements>
+        <text id="TXT_Caveats" valueName="Caveats" maxLength="50" />
+      </elements>
+    </policy>
+    
+    <!-- DisseminationControls Level -->
+    <policy name="POL_DisseminationControls" class="Machine" displayName="$(string.POL_DisseminationControls)"
+      explainText="$(string.POL_DisseminationControls_Help)"
+      presentation="$(presentation.POL_DisseminationControls)" key="SOFTWARE\ClassificationBanner">
+      <parentCategory ref="CAT_ClassificationBanner_Display" />
+      <supportedOn ref="windows:SUPPORTED_Windows10" />
+      <elements>
+        <text id="TXT_DisseminationControls" valueName="DisseminationControls" maxLength="50" />
+      </elements>
+    </policy>
+
     <!-- FPCON Level -->
     <policy name="POL_FPCON" class="Machine" displayName="$(string.POL_FPCON)"
       explainText="$(string.POL_FPCON_Help)" presentation="$(presentation.POL_FPCON)"
@@ -216,7 +238,7 @@
 
     <policy name="POL_ShowGroupID" class="Machine" displayName="$(string.POL_ShowGroupID)"
       explainText="$(string.POL_ShowGroupID_Help)" presentation="$(presentation.POL_ShowGroupID)"
-      key="SOFTWARE\ClassificationBanner">
+      key="SOFTWARE\ClassificationBanner" valueName="GroupID">
       <parentCategory ref="CAT_ClassificationBanner_SystemInfo" />
       <supportedOn ref="windows:SUPPORTED_Windows10" />
       <enabledValue>
@@ -233,7 +255,7 @@
     <!-- Appearance Settings -->
     <policy name="POL_CustomColors" class="Machine" displayName="$(string.POL_CustomColors)"
       explainText="$(string.POL_CustomColors_Help)" presentation="$(presentation.POL_CustomColors)"
-      key="SOFTWARE\ClassificationBanner">
+      key="SOFTWARE\ClassificationBanner" valueName="TextColor">
       <parentCategory ref="CAT_ClassificationBanner_Appearance" />
       <supportedOn ref="windows:SUPPORTED_Windows10" />
       <elements>
