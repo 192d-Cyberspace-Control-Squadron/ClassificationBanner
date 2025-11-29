@@ -1,11 +1,13 @@
 [project]
-name = "classificationbanner"
-version = "0.1.0"
+name = "classification_banner"
+version = "1.3.0"
 description = "Windows Classification Bar"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = ["pyinstaller>=6.17.0", "screeninfo>=0.8.1"]
 license = { file = "LICENSE" }
+authors = [{name = " TSGT JOHN EDWARD WILLMAN V, email = "john.willman.1@us.af.mil}]
+
 
 [dependency-groups]
 dev = [
