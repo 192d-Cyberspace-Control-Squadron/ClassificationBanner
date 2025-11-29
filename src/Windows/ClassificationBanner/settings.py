@@ -14,6 +14,8 @@ from .constants import (
     DEFAULT_FPCON,
     DEFAULT_CPCON,
     DEFAULT_CHECK_INTERVAL,
+    DEFAULT_CAVEATS,
+    DEFAULT_DISSEMENATION_CONTROLS,
 )
 
 
@@ -29,6 +31,8 @@ class BannerSettings:
         self.font_size: int = DEFAULT_FONT_SIZE
         self.font_family: str = DEFAULT_FONT_FAMILY
         self.enabled: int = DEFAULT_ENABLED
+        self.caveats: str = DEFAULT_CAVEATS
+        self.dissemenation_controls: DEFAULT_DISSEMENATION_CONTROLS
 
         # Threat levels
         self.fpcon: str = DEFAULT_FPCON
