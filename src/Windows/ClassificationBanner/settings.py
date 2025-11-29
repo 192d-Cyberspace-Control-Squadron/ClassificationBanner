@@ -15,7 +15,7 @@ from .constants import (
     DEFAULT_CPCON,
     DEFAULT_CHECK_INTERVAL,
     DEFAULT_CAVEATS,
-    DEFAULT_DISSEMENATION_CONTROLS,
+    DEFAULT_DISSEMINATION_CONTROLS,
 )
 
 
@@ -32,7 +32,7 @@ class BannerSettings:
         self.font_family: str = DEFAULT_FONT_FAMILY
         self.enabled: int = DEFAULT_ENABLED
         self.caveats: str = DEFAULT_CAVEATS
-        self.dissemenation_controls: str = DEFAULT_DISSEMENATION_CONTROLS
+        self.dissemenation_controls: str = DEFAULT_DISSEMINATION_CONTROLS
 
         # Threat levels
         self.fpcon: str = DEFAULT_FPCON
@@ -74,6 +74,12 @@ class BannerSettings:
 
         if registry_settings.get("GroupID") is not None:
             self.group_id = registry_settings["GroupID"]
+        
+        if registry_settings.get("Caveats") is not None:
+            self.group_id = registry_settings["Caveats"]
+
+        if registry_settings.get("DisseminationControls") is not None:
+            self.group_id = registry_settings["DisseminationControls"]
 
         # Integer values
         if registry_settings.get("Enabled") is not None:
@@ -101,12 +107,11 @@ class BannerSettings:
             "classification": self.classification,
             "bg_color": self.bg_color,
             "fg_color": self.fg_color,
-            "banner_height": self.banner_height,
-            "font_size": self.font_size,
-            "font_family": self.font_family,
             "enabled": self.enabled,
             "fpcon": self.fpcon,
             "cpcon": self.cpcon,
+            "caveats": self.caveats,
+            "dissemination_controls": self.dissemenation_controls,
             "show_hostname": self.show_hostname,
             "show_username": self.show_username,
             "show_windows_version": self.show_windows_version,
@@ -121,9 +126,8 @@ class BannerSettings:
             "classification": self.classification,
             "bg_color": self.bg_color,
             "fg_color": self.fg_color,
-            "banner_height": self.banner_height,
-            "font_size": self.font_size,
-            "font_family": self.font_family,
+            "caveats": self.caveats,
+            "dissemination_controls": self.dissemenation_controls,
             "enabled": self.enabled,
             "fpcon": self.fpcon,
             "cpcon": self.cpcon,
