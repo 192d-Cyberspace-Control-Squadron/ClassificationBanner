@@ -28,22 +28,23 @@ class RegistryManager:
                 break  # Successfully read, don't try next location
             except FileNotFoundError:
                 continue
-            except Exception as e:
+            except SystemError as e:
                 print(f"Error reading registry at {hkey}\\{subkey}: {e}")
                 continue
 
         return self._apply_color_schemes(settings)
 
-    def _read_all_values(self, key) -> Dict[str, Any]:
+    def _read_all_values(self, key: winreg.HKEYType) -> Dict[str, Any]:
         """Read all registry values from an open key"""
-        settings = {}
+        settings: Dict[str, Any] = {}
 
         # String values
         for name in [
             "Classification",
             "BackgroundColor",
             "TextColor",
-            "FontFamily",
+            "Caveats",
+            "DisseminationControls",
             "FPCON",
             "CPCON",
             "GroupID",
