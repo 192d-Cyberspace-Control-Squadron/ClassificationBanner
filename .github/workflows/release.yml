@@ -53,6 +53,7 @@ jobs:
 
       - name: Move ClassificationBanner.exe
         run: |
+          Get-ChildItem D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\
           Move-Item D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\ClassificationBanner.exe D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\Files\ClassificationBanner.exe
         shell: pwsh
 
