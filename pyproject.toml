@@ -6,11 +6,11 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = ["pyinstaller>=6.17.0", "screeninfo>=0.8.1"]
 license = { file = "LICENSE" }
+authors = [
+    { name = "TSGT JOHN EDWARD WILLMAN V", email = "john.willman.1@us.af.mil" },
+    { name = "U.S. Federal Government", email = "john.willman.1@us.af.mil" },
+]
 
 
 [dependency-groups]
-dev = [
-    "flake8>=7.3.0",
-    "pytest>=9.0.1",
-    "pytest-cov>=7.0.0",
-]
+dev = ["flake8>=7.3.0", "pytest>=9.0.1", "pytest-cov>=7.0.0"]
