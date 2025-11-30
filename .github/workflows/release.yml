@@ -39,32 +39,32 @@ jobs:
 
       - name: Copy Installer
         run: |
-          Get-ChildItem "D:\a\ClassificationBanner\ClassificationBanner\ClassificationBanner_Install" | ForEach-Object {
+          Get-ChildItem ".\ClassificationBanner_Install" | ForEach-Object {
             Copy-Item $_.FullName .\dist\Windows -Recurse
           }
         shell: pwsh
 
       - name: Copy Group Policy Objects
         run: |
-          Get-ChildItem "D:\a\ClassificationBanner\ClassificationBanner\src\Windows\Group Policy" | ForEach-Object {
+          Get-ChildItem ".\src\Windows\Group Policy" | ForEach-Object {
             Copy-Item $_.FullName .\dist\Windows\SupportFiles -Recurse
           }
         shell: pwsh
 
       - name: Move ClassificationBanner.exe
         run: |
-          Get-ChildItem D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\
-          Move-Item D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\ClassificationBanner.exe D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\Files\ClassificationBanner.exe
+          Move-Item .\dist\Windows\ClassificationBanner.exe .\dist\Windows\Files\ClassificationBanner.exe
         shell: pwsh
 
       - name: Update Version in installer
         run: |
+          Move-Item ".\dist\Windows\ClassificationBanner.exe" ".\dist\Windows\Files\ClassificationBanner.exe"
           $Version = ${{github.ref_name}}
-          (Get-Content "D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\Invoke-AppDeployToolkit.ps1") -replace "AppVersion\s*=.*", "AppVersion                  = `'$($Version.Substring(1))`'" | Set-Content "D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\Invoke-AppDeployToolkit.ps1" -Force
+          (Get-Content ".\dist\Windows\Invoke-AppDeployToolkit.ps1") -replace "AppVersion\s*=.*", "AppVersion                  = `'$($Version.Substring(1))`'" | Set-Content ".\dist\Windows\Invoke-AppDeployToolkit.ps1" -Force
         shell: pwsh
       - name: Compress Archive
         run: |
-          Compress-Archive -Path "D:\a\ClassificationBanner\ClassificationBanner\dist\Windows\" -DestinationPath "D:\a\ClassificationBanner\ClassificationBanner\dist\ClassificationBanner-${{github.ref_name}}.zip"
+          Compress-Archive -Path ".\dist\Windows\" -DestinationPath ".\dist\ClassificationBanner-${{github.ref_name}}.zip"
         shell: pwsh
       - name: Package build output
         if: startsWith(github.ref, 'refs/tags/')
