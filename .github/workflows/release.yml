@@ -74,7 +74,7 @@ jobs:
       - name: Package build output
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          $zipName = "ClassificationBanner-${{ github.ref_name }}.zip"
+          $zipName = ".\dist\ClassificationBanner-${{ github.ref_name }}.zip"
           echo "ZIP_NAME=$zipName" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       # Create GitHub Release when this run was triggered by a tag
