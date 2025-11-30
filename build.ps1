@@ -6,7 +6,7 @@ param (
 )
 Set-Location $PSScriptRoot
 
-Start-Process uv -ArgumentList "run pyinstaller --onefile --noconsole --distpath="$PSScriptRoot/dist/Windows/" --paths="$PSScriptRoot/src/Windows" --name ClassificationBanner "$PSScriptRoot/src/Windows/main.py"" -wait
+Start-Process uv -ArgumentList "run pyinstaller --onefile --noconsole --distpath=$PSScriptRoot\dist\Windows\ --paths=$PSScriptRoot\src\Windows --name ClassificationBanner $PSScriptRoot/src/Windows/main.py" -wait
 
 Get-ChildItem "$PSScriptRoot\ClassificationBanner_Install" | ForEach-Object {
     Copy-Item $_.FullName .\dist\Windows -Recurse
