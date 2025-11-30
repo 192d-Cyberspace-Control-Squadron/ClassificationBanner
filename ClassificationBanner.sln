@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClassificationBanner.Installer", "ClassificationBanner.Installer", "{4A98D45E-FBD2-17DF-2A77-4ED7BCF3F965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassificationBanner.Installer", "ClassificationBanner.Installer\ClassificationBanner.Installer.csproj", "{9327B0EC-81CA-0CBE-F88F-F5C9ED83DCCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9327B0EC-81CA-0CBE-F88F-F5C9ED83DCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9327B0EC-81CA-0CBE-F88F-F5C9ED83DCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9327B0EC-81CA-0CBE-F88F-F5C9ED83DCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9327B0EC-81CA-0CBE-F88F-F5C9ED83DCCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9327B0EC-81CA-0CBE-F88F-F5C9ED83DCCB} = {4A98D45E-FBD2-17DF-2A77-4ED7BCF3F965}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8948A7B1-E264-4A45-B370-111DFCE555F3}
+	EndGlobalSection
+EndGlobal
