@@ -10,7 +10,20 @@ authors = [
     { name = "TSGT JOHN EDWARD WILLMAN V", email = "john.willman.1@us.af.mil" },
     { name = "U.S. Federal Government", email = "john.willman.1@us.af.mil" },
 ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
 
+    # Indicate who your project is intended for
+    "Intended Audience :: System Administrators",
+    "Topic :: Windows :: Applications ",
+
+    "Programming Language :: Python :: 3.14",
+]
+
+[project.urls]
+Repository = "https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner.git"
+Issues = "https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/issues"
+Changelog = "https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = ["flake8>=7.3.0", "pytest>=9.0.1", "pytest-cov>=7.0.0"]
