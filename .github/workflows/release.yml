@@ -81,10 +81,10 @@ jobs:
       - name: Create Release
         run: |
           gh release create ${{ github.ref_name }} \
-            --title "Release ${{ github.ref_name }}" \
-            --notes "# CHANGELOG
+            -t "Release ${{ github.ref_name }}" \
+            -n "# CHANGELOG
 
           * https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/blob/${{ github.ref_name }}/CHANGELOG.md" \
-            --latest ./dist/ClassificationBanner-${{ github.ref_name }}.zip
+           ./dist/ClassificationBanner-${{ github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
