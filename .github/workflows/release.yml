@@ -40,8 +40,21 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: 192d-Cyberspace-Control-Squadron/ClassificationBanner
       - name: Build
+        shell: powershell
         run:
-          .\build.ps1 -Version ${{ github.ref_name }}
+          uv run pyinstaller --onefile --noconsole --distpath=.\dist\Windows\ --paths=.\src\Windows --name ClassificationBanner .\src\Windows\main.py
+          Get-ChildItem ".\ClassificationBanner_Install" | ForEach-Object {
+          Copy-Item $_.FullName .\dist\Windows -Recurse
+          }
+          Get-ChildItem "$.\src\Windows\Group Policy" | ForEach-Object {
+          Copy-Item $_.FullName .\dist\Windows\SupportFiles -Recurse
+          }
+          Move-Item ".\dist\Windows\ClassificationBanner.exe" ".\dist\Windows\Files\ClassificationBanner.exe"
+          $Version = ${{github.ref_name}}
+          (Get-Content ".\dist\Windows\Invoke-AppDeployToolkit.ps1") -replace "AppVersion\s*=.*", "AppVersion                  = `'$($Version.Substring(1))`'" | Set-Content ".\dist\Windows\Invoke-AppDeployToolkit.ps1" -Force
+
+
+          Compress-Archive -Path ".\dist\Windows\" -DestinationPath ".\dist\ClassificationBanner-$Version.zip"
 
           # Optional: package whatever your build.ps1 outputs
       # Example assuming you drop files into .\dist
