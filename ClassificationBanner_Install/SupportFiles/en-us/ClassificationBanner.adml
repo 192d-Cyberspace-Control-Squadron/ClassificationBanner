@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.2" schemaVersion="1.0"
+  xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Classification Banner Language Resources</displayName>
+  <description>Language resources for Classification Banner Group Policy settings</description>
+  <resources>
+    <stringTable>
+      <!-- Categories -->
+      <string id="CAT_ClassificationBanner">Classification Banner</string>
+      <string id="CAT_ClassificationBanner_Display">Display Settings</string>
+      <string id="CAT_ClassificationBanner_SystemInfo">System Information</string>
+      <string id="CAT_ClassificationBanner_ThreatLevels">Threat Levels (FPCON/CPCON)</string>
+      <string id="CAT_ClassificationBanner_Appearance">Appearance</string>
+
+      <!-- Banner Enabled Policy -->
+      <string id="POL_BannerEnabled">Enable Classification Banner</string>
+      <string id="POL_BannerEnabled_Help">This policy setting controls whether the Classification
+        Banner is displayed.
+
+        If you enable this policy setting, the Classification Banner will be displayed at the top of
+        all monitors.
+
+        If you disable this policy setting, the Classification Banner will not be displayed.
+
+        If you do not configure this policy setting, the banner will be enabled by default.</string>
+
+      <!-- Classification Level Policy -->
+      <string id="POL_Classification">Set Classification Level</string>
+      <string id="POL_Classification_Help">This policy setting specifies the security classification
+        level to display on the banner.
+
+        Select a predefined classification level:
+        - UNCLASSIFIED (Green background, Black text)
+        - CUI (Purple background, White text)
+        - CONFIDENTIAL (Blue background, White text)
+        - SECRET (Red background, Black text)
+        - TOP SECRET (Orange background, Black text)
+        - SCI (Yellow background, Black text)
+        - CUSTOM (Use custom text from the field below)
+
+        If CUSTOM is selected, enter the custom classification text in the "Custom Classification
+        Text" field.
+
+        If you do not configure this policy setting, the banner will display "UNCONFIGURED".</string>
+
+      <string id="ENUM_Classification_Unclassified">UNCLASSIFIED</string>
+      <string id="ENUM_Classification_CUI">CUI (Controlled Unclassified Information)</string>
+      <string id="ENUM_Classification_Confidential">CONFIDENTIAL</string>
+      <string id="ENUM_Classification_Secret">SECRET</string>
+      <string id="ENUM_Classification_TopSecret">TOP SECRET</string>
+      <string id="ENUM_Classification_TopSecretSCI">SCI</string>
+      <string id="ENUM_Classification_Custom">CUSTOM (specify below)</string>
+
+      <!-- Caveats Policy -->
+      <string id="POL_Caveats">Set Caveats</string>
+      <string id="POL_Caveats_Help">This policy setting specifies the Caveats
+        to display on the banner.
+
+        Enter the Caveats text in the "Caveats Text" field.
+
+        If you do not configure this policy setting, the banner will not display Caveats.</string>
+
+      <!-- DisseminationControls Level Policy -->
+      <string id="POL_DisseminationControls">Set Dissemination Controls</string>
+      <string id="POL_DisseminationControls_Help">This policy setting specifies the Dissemination Controls
+        to display on the banner.
+
+        Enter the Dissemination Controls text in the "Dissemination Controls
+        Text" field.
+
+        If you do not configure this policy setting, the banner will not display Dissemination Controls.</string>
+
+      <!-- FPCON Policy -->
+      <string id="POL_FPCON">Set Force Protection Condition (FPCON)</string>
+      <string id="POL_FPCON_Help">This policy setting specifies the Force Protection Condition
+        (FPCON) level to display on the banner.
+
+        FPCON Levels:
+        - Alpha: Increased general threat of possible terrorist activity
+        - Bravo: Increased or more predictable threat of terrorist activity
+        - Charlie: Incident has occurred or intelligence indicates imminent action
+        - Delta: Terrorist attack has occurred or intelligence indicates imminent attack
+
+        The FPCON level will be displayed in the right corner of the banner as "FPCON: [LEVEL]".
+
+        If you do not configure this policy setting, FPCON will not be displayed.</string>
+
+      <string id="ENUM_FPCON_Alpha">Alpha</string>
+      <string id="ENUM_FPCON_Bravo">Bravo</string>
+      <string id="ENUM_FPCON_Charlie">Charlie</string>
+      <string id="ENUM_FPCON_Delta">Delta</string>
+
+      <!-- CPCON Policy -->
+      <string id="POL_CPCON">Set Cyber Condition (CPCON)</string>
+      <string id="POL_CPCON_Help">This policy setting specifies the Cyberspace Protection Condition (CPCON)
+        level to display on the banner.
+
+        CPCON Levels:
+        - 1: Normal - Routine network operations
+        - 2: Guarded - Increased awareness, minor threats detected
+        - 3: Elevated - Heightened alert, specific threats identified
+        - 4: Severe - Significant cyber threat or attack in progress
+        - 5: Critical - Major cyber attack, severe network compromise
+
+        The CPCON level will be displayed in the right corner of the banner as "CPCON:
+        [LEVEL]".
+
+        If you do not configure this policy setting, CPCON will not be displayed.</string>
+
+      <string id="ENUM_CPCON_1">1 - Normal</string>
+      <string id="ENUM_CPCON_2">2 - Guarded</string>
+      <string id="ENUM_CPCON_3">3 - Elevated</string>
+      <string id="ENUM_CPCON_4">4 - Severe</string>
+      <string id="ENUM_CPCON_5">5 - Critical</string>
+
+      <!-- System Information Policies -->
+      <string id="POL_ShowHostname">Display Hostname</string>
+      <string id="POL_ShowHostname_Help">This policy setting controls whether the computer's
+        hostname is displayed on the banner.
+
+        If you enable this policy setting, the hostname will be displayed on the left side of the
+        banner.
+
+        Example: "DESKTOP-ABC123"
+
+        If you disable or do not configure this policy setting, the hostname will not be displayed.</string>
+
+      <string id="POL_ShowUsername">Display Username</string>
+      <string id="POL_ShowUsername_Help">This policy setting controls whether the current
+        user's domain and username are displayed on the banner.
+
+        If you enable this policy setting, the username will be displayed on the left side of
+        the banner.
+
+        Example: "john.e.doe.mil"
+
+        Note: This displays the currently logged-in user, which may have privacy implications.
+
+        If you disable or do not configure this policy setting, the domain\username will not be
+        displayed.</string>
+
+      <string id="POL_ShowWindowsVersion">Display Windows Version</string>
+      <string id="POL_ShowWindowsVersion_Help">This policy setting controls whether the Windows
+        version and build number are displayed on the banner.
+
+        If you enable this policy setting, the Windows version will be displayed on the left side of
+        the banner.
+
+        Example: "Windows 11 (10.0.22621)"
+
+        If you disable or do not configure this policy setting, the Windows version will not be
+        displayed.</string>
+
+      <string id="POL_ShowIPAddress">Display IP Address</string>
+      <string id="POL_ShowIPAddress_Help">This policy setting controls whether the computer's
+        primary IP address is displayed on the banner.
+
+        If you enable this policy setting, the IP address will be displayed on the left side of the
+        banner.
+
+        Example: "192.168.1.100"
+
+        Note: This displays the primary network interface IP address used for outbound connections.
+        If you disable or do not configure this policy setting, the IP address will not be
+        displayed.</string>
+
+      <string id="POL_ShowGroupID">Display Group ID</string>
+      <string id="POL_ShowGroupID_Help">This policy setting controls whether a custom organizational
+        group identifier is displayed on the banner.
+
+        If you enable this policy setting, the Group ID will be displayed on the left side of the
+        banner, and you can specify the Group ID text in the field below.
+
+        Example: "Group: IT-DEPT-001"
+
+        Use this to identify departments, teams, or organizational units. Common uses:
+        - Department identification (IT-DEPT, FINANCE, HR)
+        - Location identification (BLDG-A, FLOOR-3)
+        - Security zone (DMZ-1, SECURE-ZONE)
+
+        If you disable or do not configure this policy setting, the Group ID will not be displayed.</string>
+
+      <string id="POL_CustomColors">Custom Banner Colors</string>
+      <string id="POL_CustomColors_Help">This policy setting allows you to override the default
+        colors for the banner.
+
+        Specify colors in hexadecimal format: #RRGGBB
+
+        Examples:
+        - Red: #FF0000
+        - Green: #00FF00
+        - Blue: #0000FF
+        - White: #FFFFFF
+        - Black: #000000
+
+        Note: Custom colors override the predefined color schemes for classification levels. Use
+        this only if you need colors different from the standard classification colors.
+
+        If you do not configure this policy setting, colors will be determined by the classification
+        level:
+        - UNCLASSIFIED: Green background (#00FF00), Black text (#000000)
+        - CUI: Purple background (#502B85), White text (#FFFFFF)
+        - CONFIDENTIAL: Blue background (#0000FF), White text (#FFFFFF)
+        - SECRET: Red background (#FF0000), Black text (#000000)
+        - TOP SECRET: Orange background (#FF8C00), Black text (#000000)
+        - TOP SECRET//SCI: Yellow background (#FFFF00), Black text (#000000)</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="POL_Classification">
+        <dropdownList refId="ENUM_ClassificationLevel" defaultItem="0">Classification Level:</dropdownList>
+        <textBox refId="TXT_CustomClassification">
+          <label>Custom Classification Text (if CUSTOM selected above):</label>
+          <defaultValue>CUSTOM CLASSIFICATION</defaultValue>
+        </textBox>
+      </presentation>
+
+      <presentation id="POL_Caveats">
+        <textBox refId="TXT_Caveats">
+          <label>Caveats:</label>
+          <defaultValue>HCS/SI/TK</defaultValue>
+        </textBox>
+      </presentation>
+
+      <presentation id="POL_DisseminationControls">
+        <textBox refId="TXT_DisseminationControls">
+          <label>DisseminationControls:</label>
+          <defaultValue>NOFORN</defaultValue>
+        </textBox>
+      </presentation>
+
+      <presentation id="POL_FPCON">
+        <dropdownList refId="ENUM_FPCON" defaultItem="0">FPCON Level:</dropdownList>
+      </presentation>
+
+      <presentation id="POL_CPCON">
+        <dropdownList refId="ENUM_CPCON" defaultItem="0">CPCON Level:</dropdownList>
+      </presentation>
+
+      <presentation id="POL_ShowGroupID">
+        <textBox refId="TXT_GroupID">
+          <label>Group ID:</label>
+          <defaultValue>GROUP-001</defaultValue>
+        </textBox>
+      </presentation>
+
+      <presentation id="POL_CustomColors">
+        <textBox refId="TXT_BackgroundColor">
+          <label>Background Color (hex, e.g., #FF0000):</label>
+          <defaultValue>#00FF00</defaultValue>
+        </textBox>
+        <textBox refId="TXT_TextColor">
+          <label>Text Color (hex, e.g., #000000):</label>
+          <defaultValue>#000000</defaultValue>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

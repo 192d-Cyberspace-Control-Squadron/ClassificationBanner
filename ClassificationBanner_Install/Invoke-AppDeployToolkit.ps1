@@ -90,13 +90,13 @@ $adtSession = @{
     # App variables.
     AppVendor                   = 'Department of War'
     AppName                     = 'ClassificationBanner'
-    AppVersion                  = '1.3.0.0'
+    AppVersion                  = '1.3.0'
     AppArch                     = 'x64'
     AppLang                     = 'EN'
     AppRevision                 = '01'
     AppSuccessExitCodes         = @(0)
     AppRebootExitCodes          = @(1641, 3010)
-    AppProcessesToClose         = @()  # Example: @('excel', @{ Name = 'winword'; Description = 'Microsoft Word' })
+    AppProcessesToClose         = @('ClassificationBanner')  # Close any running instance
     AppScriptVersion            = '1.0.0'
     AppScriptDate               = '2025-11-29'
     AppScriptAuthor             = 'TSGT JOHN EDWARD WILLMAN V <john.willman.1@us.af.mil>'
@@ -110,6 +110,30 @@ $adtSession = @{
     DeployAppScriptFriendlyName = $MyInvocation.MyCommand.Name
     DeployAppScriptParameters   = $PSBoundParameters
     DeployAppScriptVersion      = '4.1.7'
+}
+
+function Test-ClassificationBannerInstalled {
+    [CmdletBinding()]
+    param()
+
+    $installPath = Join-Path $env:ProgramFiles 'Department of War\ClassificationBanner'
+    $exeName = 'ClassificationBanner.exe'
+    $installedExePath = Join-Path $installPath $exeName
+
+    $runKeyPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run'
+    $runKeyName = 'ClassificationBanner'
+
+    $fileExists = Test-Path -Path $installedExePath -PathType Leaf
+
+    $regExists = $false
+    if (Test-Path $runKeyPath) {
+        $reg = Get-ItemProperty -Path $runKeyPath -Name $runKeyName -ErrorAction SilentlyContinue
+        if ($reg -and $reg.$runKeyName) {
+            $regExists = $true
+        }
+    }
+
+    return ($fileExists -and $regExists)
 }
 
 function Install-ADTDeployment {
@@ -158,17 +182,128 @@ function Install-ADTDeployment {
         }
     }
 
+    ## <Perform Installation tasks here>
+    try {
+        Write-ADTLogEntry -Message "Starting install for $($adtSession.AppName)." -Severity 1
+
+        $installPath = Join-Path $env:ProgramFiles 'Department of War\ClassificationBanner'
+        $exeName = 'ClassificationBanner.exe'
+        $installedExePath = Join-Path $installPath $exeName
+
+        # Path to payload in .\Files
+        $sourceExe = Join-Path (Join-Path $PSScriptRoot 'Files') $exeName
+
+        # Ensure install directory exists
+        if (-not (Test-Path $installPath)) {
+            New-Item -Path $installPath -ItemType Directory -Force | Out-Null
+            Write-ADTLogEntry -Message "Created install directory: $installPath" -Severity 1
+        }
+
+        # Copy EXE into place
+        Copy-Item -Path $sourceExe -Destination $installedExePath -Force
+        Write-ADTLogEntry -Message "Copied $sourceExe to $installedExePath" -Severity 1
+
+        # Configure Run-at-logon key
+        $runKeyPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run'
+        $runKeyName = 'ClassificationBanner'
+        $runKeyValue = "`"$installedExePath`""
+
+        if (-not (Test-Path $runKeyPath)) {
+            New-Item -Path $runKeyPath -Force | Out-Null
+        }
+
+        New-ItemProperty -Path $runKeyPath -Name $runKeyName -Value $runKeyValue -PropertyType String -Force | Out-Null
+        Write-ADTLogEntry -Message "Set Run key: $runKeyPath\$runKeyName = $runKeyValue" -Severity 1
+
+        # Optional: kill any running instance and start fresh
+        Get-Process -Name 'ClassificationBanner' -ErrorAction SilentlyContinue |
+        Stop-Process -Force -ErrorAction SilentlyContinue
+
+        Start-Process -FilePath $installedExePath -ErrorAction SilentlyContinue
+        Write-ADTLogEntry -Message "Launched $installedExePath after install." -Severity 1
+    }
+    catch {
+        Write-ADTLogEntry -Message "Error during install: $($_.Exception.Message)" -Severity 3
+        throw
+    }
+
+    # --- Copy ADMX / ADML to local PolicyDefinitions ---
+    $policyDefRoot = Join-Path $env:SystemRoot 'PolicyDefinitions'
+    $supportFilesDir = Join-Path $PSScriptRoot 'SupportFiles'
+
+    Write-ADTLogEntry -Message "Copying ADMX/ADML from $supportFilesDir to $policyDefRoot" -Severity 1
+
+    # Ensure PolicyDefinitions exists
+    if (-not (Test-Path $policyDefRoot)) {
+        New-Item -Path $policyDefRoot -ItemType Directory -Force | Out-Null
+        Write-ADTLogEntry -Message "Created PolicyDefinitions folder: $policyDefRoot" -Severity 1
+    }
+
+    # 1) Copy all ADMX files in SupportFiles root -> C:\Windows\PolicyDefinitions
+    Get-ChildItem -Path $supportFilesDir -Filter '*.admx' -File -ErrorAction SilentlyContinue |
+    ForEach-Object {
+        Copy-Item -Path $_.FullName -Destination $policyDefRoot -Force
+        Write-ADTLogEntry -Message "Copied ADMX: $($_.Name) -> $policyDefRoot" -Severity 1
+    }
+
+    # 2) Copy ADML language folders (e.g. SupportFiles\en-US\*.adml)
+    Get-ChildItem -Path $supportFilesDir -Directory -ErrorAction SilentlyContinue |
+    ForEach-Object {
+        $langFolder = $_.Name          # e.g. "en-US"
+        $srcLangDir = $_.FullName
+        $dstLangDir = Join-Path $policyDefRoot $langFolder
+
+        # Only treat it as a language folder if it actually has .adml files
+        $admlFiles = Get-ChildItem -Path $srcLangDir -Filter '*.adml' -File -ErrorAction SilentlyContinue
+        if ($admlFiles) {
+            if (-not (Test-Path $dstLangDir)) {
+                New-Item -Path $dstLangDir -ItemType Directory -Force | Out-Null
+                Write-ADTLogEntry -Message "Created language folder: $dstLangDir" -Severity 1
+            }
+
+            foreach ($file in $admlFiles) {
+                Copy-Item -Path $file.FullName -Destination $dstLangDir -Force
+                Write-ADTLogEntry -Message "Copied ADML: $($file.Name) -> $dstLangDir" -Severity 1
+            }
+        }
+
+        
+    }
+
+    # --- Add ARP (Add/Remove Programs) entry ---
+    $arpBase = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall'
+    $appKeyName = 'ClassificationBanner'   # Can be a GUID, but product name is fine
+    $arpKeyPath = Join-Path $arpBase $appKeyName
+
     $installPath = Join-Path $env:ProgramFiles 'Department of War\ClassificationBanner'
-    # EXE name
     $exeName = 'ClassificationBanner.exe'
-    # Full path to installed EXE
     $installedExePath = Join-Path $installPath $exeName
 
-    # Run key for auto-start at logon (HKLM)
-    $runKeyPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run'
-    $runKeyName = 'ClassificationBanner'
-    # The value should be: "C:\Program Files\Department of War\ClassificationBanner\ClassificationBanner.exe"
-    $runKeyValue = "`"$installedExePath`""
+    Write-ADTLogEntry -Message "Creating ARP entry at $arpKeyPath" -Severity 1
+
+    # Create the key
+    if (-not (Test-Path $arpKeyPath)) {
+        New-Item -Path $arpKeyPath -Force | Out-Null
+    }
+
+    # Required ARP values
+    New-ItemProperty -Path $arpKeyPath -Name "DisplayName"          -Value "Classification Banner" -PropertyType String -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "Publisher"            -Value "Department of War"     -PropertyType String -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "DisplayVersion"       -Value $adtSession.AppVersion  -PropertyType String -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "InstallLocation"      -Value $installPath            -PropertyType String -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "DisplayIcon"          -Value $installedExePath       -PropertyType String -Force | Out-Null
+
+    # Required for Programs and Features uninstall functionality
+    $uninstallCmd = "`"$PSScriptRoot\Invoke-AppDeployToolkit.ps1`" -DeploymentType Uninstall -DeployMode Silent"
+    New-ItemProperty -Path $arpKeyPath -Name "UninstallString"         -Value "powershell.exe -ExecutionPolicy Bypass -File $uninstallCmd" -PropertyType String -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "QuietUninstallString"    -Value "powershell.exe -ExecutionPolicy Bypass -File $uninstallCmd" -PropertyType String -Force | Out-Null
+
+    # Make it appear as a real installer
+    New-ItemProperty -Path $arpKeyPath -Name "NoModify"    -Value 1 -PropertyType DWord -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "NoRepair"    -Value 1 -PropertyType DWord -Force | Out-Null
+    New-ItemProperty -Path $arpKeyPath -Name "InstallDate" -Value (Get-Date -Format yyyyMMdd) -PropertyType String -Force | Out-Null
+
+
 
 
     ##================================================
@@ -181,7 +316,7 @@ function Install-ADTDeployment {
 
     ## Display a message at the end of the install.
     if (!$adtSession.UseDefaultMsi) {
-        Show-ADTInstallationPrompt -Message 'You can customize text to appear at the end of an install or remove it completely for unattended installations.' -ButtonRightText 'OK' -Icon Information -NoWait
+        Show-ADTInstallationPrompt -Message "$($adtSession.AppName) installation completed successfully." -ButtonRightText 'OK' -Icon Information -NoWait
     }
 }
 
@@ -222,6 +357,58 @@ function Uninstall-ADTDeployment {
     }
 
     ## <Perform Uninstallation tasks here>
+    try {
+        Write-ADTLogEntry -Message "Starting uninstall for $($adtSession.AppName)." -Severity 1
+
+        $installPath = Join-Path $env:ProgramFiles 'Department of War\ClassificationBanner'
+        $exeName = 'ClassificationBanner.exe'
+        $installedExePath = Join-Path $installPath $exeName
+
+        $runKeyPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run'
+        $runKeyName = 'ClassificationBanner'
+
+        # Stop process if running
+        Get-Process -Name 'ClassificationBanner' -ErrorAction SilentlyContinue |
+        Stop-Process -Force -ErrorAction SilentlyContinue
+
+        # Remove Run key
+        if (Test-Path $runKeyPath) {
+            Remove-ItemProperty -Path $runKeyPath -Name $runKeyName -ErrorAction SilentlyContinue
+            Write-ADTLogEntry -Message "Removed Run key: $runKeyPath\$runKeyName" -Severity 1
+        }
+
+        # Remove EXE
+        if (Test-Path $installedExePath) {
+            Remove-Item -Path $installedExePath -Force -ErrorAction SilentlyContinue
+            Write-ADTLogEntry -Message "Removed file: $installedExePath" -Severity 1
+        }
+
+        # Remove folder if empty
+        if (Test-Path $installPath) {
+            Try {
+                Remove-Item -Path $installPath -Recurse -Force -ErrorAction Stop
+                Write-ADTLogEntry -Message "Removed directory: $installPath" -Severity 1
+            }
+            Catch {
+                # If folder not empty / locked, just log it.
+                Write-ADTLogEntry -Message "Could not fully remove $($installPath): $($_.Exception.Message)" -Severity 2
+            }
+        }
+    }
+    catch {
+        Write-ADTLogEntry -Message "Error during uninstall: $($_.Exception.Message)" -Severity 3
+        throw
+    }
+
+    # --- Remove ARP entry ---
+    $arpBase = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall'
+    $appKeyName = 'ClassificationBanner'
+    $arpKeyPath = Join-Path $arpBase $appKeyName
+
+    if (Test-Path $arpKeyPath) {
+        Remove-Item -Path $arpKeyPath -Recurse -Force -ErrorAction SilentlyContinue
+        Write-ADTLogEntry -Message "Removed ARP entry at $arpKeyPath" -Severity 1
+    }
 
 
     ##================================================
@@ -269,6 +456,45 @@ function Repair-ADTDeployment {
     }
 
     ## <Perform Repair tasks here>
+    try {
+        Write-ADTLogEntry -Message "Starting repair for $($adtSession.AppName)." -Severity 1
+
+        $installPath = Join-Path $env:ProgramFiles 'Department of War\ClassificationBanner'
+        $exeName = 'ClassificationBanner.exe'
+        $installedExePath = Join-Path $installPath $exeName
+
+        $runKeyPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run'
+        $runKeyName = 'ClassificationBanner'
+        $runKeyValue = "`"$installedExePath`""
+
+        $sourceExe = Join-Path (Join-Path $PSScriptRoot 'Files') $exeName
+
+        # If not present at all, just call Install logic
+        if (-not (Test-ClassificationBannerInstalled)) {
+            Write-ADTLogEntry -Message "Classification Banner not fully present. Re-applying install steps as part of repair." -Severity 2
+
+            if (-not (Test-Path $installPath)) {
+                New-Item -Path $installPath -ItemType Directory -Force | Out-Null
+            }
+
+            Copy-Item -Path $sourceExe -Destination $installedExePath -Force
+
+            if (-not (Test-Path $runKeyPath)) {
+                New-Item -Path $runKeyPath -Force | Out-Null
+            }
+            New-ItemProperty -Path $runKeyPath -Name $runKeyName -Value $runKeyValue -PropertyType String -Force | Out-Null
+        }
+        else {
+            # Refresh files and registry for good measure
+            Copy-Item -Path $sourceExe -Destination $installedExePath -Force
+            New-ItemProperty -Path $runKeyPath -Name $runKeyName -Value $runKeyValue -PropertyType String -Force | Out-Null
+            Write-ADTLogEntry -Message "Refreshed EXE and Run key for $($adtSession.AppName)." -Severity 1
+        }
+    }
+    catch {
+        Write-ADTLogEntry -Message "Error during repair: $($_.Exception.Message)" -Severity 3
+        throw
+    }
 
 
     ##================================================
