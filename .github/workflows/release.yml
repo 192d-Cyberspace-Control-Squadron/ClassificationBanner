@@ -58,7 +58,6 @@ jobs:
 
       - name: Update Version in installer
         run: |
-          Move-Item ".\dist\Windows\ClassificationBanner.exe" ".\dist\Windows\Files\ClassificationBanner.exe"
           $Version = ${{github.ref_name}}
           (Get-Content ".\dist\Windows\Invoke-AppDeployToolkit.ps1") -replace "AppVersion\s*=.*", "AppVersion                  = `'$($Version.Substring(1))`'" | Set-Content ".\dist\Windows\Invoke-AppDeployToolkit.ps1" -Force
         shell: pwsh
