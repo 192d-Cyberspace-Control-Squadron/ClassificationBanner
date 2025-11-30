@@ -78,12 +78,14 @@ jobs:
           echo "ZIP_NAME=$zipName" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       # Create GitHub Release when this run was triggered by a tag
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }} # e.g. v1.2.3
-          name: ${{ github.ref_name }} # release title
-          generate_release_notes: true
-          files: dist/ClassificationBanner-${{ github.ref_name }}.zip
+      - name: Create Release
+        run: |
+          gh release create ${{ github.ref_name }} \
+            -t "Release ${{ github.ref_name }}" \
+            -n "# CHANGELOG
+
+          * https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/blob/${{ github.ref_name }}/CHANGELOG.md" \
+            ${{ contains(github.ref_name, 'rc') && '--prerelease' || '--latest' }} \
+            .\dist\ClassificationBanner-${{ github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
