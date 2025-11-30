@@ -4,6 +4,8 @@ param (
     [String]
     $Version
 )
+Set-Location $PSScriptRoot
+
 Start-Process uv -ArgumentList "run pyinstaller --onefile --noconsole --distpath=dist/Windows/ --paths=src/Windows --name ClassificationBanner src/Windows/main.py" -wait
 
 Get-ChildItem ".\ClassificationBanner_Install" | ForEach-Object {
