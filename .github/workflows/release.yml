@@ -80,11 +80,7 @@ jobs:
       # Create GitHub Release when this run was triggered by a tag
       - name: Create Release
         run: |
-          gh release create ${{ github.ref_name }} \
-            -t "Release ${{ github.ref_name }}" \
-            -n "# CHANGELOG
-
-          * https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/blob/${{ github.ref_name }}/CHANGELOG.md" \
-           ./dist/ClassificationBanner-${{ github.ref_name }}.zip
+          gh release create ${{ github.ref_name }} -t "Release ${{ github.ref_name }}" -n "# CHANGELOG * https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/blob/${{ github.ref_name }}/CHANGELOG.md" ./dist/ClassificationBanner-${{ github.ref_name }}.zip
+        shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
