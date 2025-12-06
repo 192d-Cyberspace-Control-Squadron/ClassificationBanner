@@ -3,6 +3,6 @@
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/192d-Cyberspace-Control-Squadron/ClassificationBanner?style=for-the-badge&logo=GitHub&link=https%3A%2F%2Fgithub.com%2F192d-Cyberspace-Control-Squadron%2FClassificationBanner%2Fissues)](https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/issues)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/192d-Cyberspace-Control-Squadron/ClassificationBanner?style=for-the-badge&logo=GitHub&link=https%3A%2F%2Fgithub.com%2F192d-Cyberspace-Control-Squadron%2FClassificationBanner%2Fpulls)](https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/pulls)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/t/192d-Cyberspace-Control-Squadron/ClassificationBanner?style=for-the-badge&logo=GitHub&label=Main-commits)](https://github.com/192d-Cyberspace-Control-Squadron/ClassificationBanner/commits/main/)
-[![Codecov (with branch)](https://img.shields.io/codecov/c/github/192d-Cyberspace-Control-Squadron/ClassificationBanner/dev?style=for-the-badge&logo=Codecov)](https://app.codecov.io/gh/192d-Cyberspace-Control-Squadron/ClassificationBanner)
+[![codecov](https://codecov.io/gh/192d-Cyberspace-Control-Squadron/ClassificationBanner/graph/badge.svg?token=I2Q3ZN5YEZ)](https://codecov.io/gh/192d-Cyberspace-Control-Squadron/ClassificationBanner)
 
 This repo contains a Windows Classification Banner implementented as a AppBar.
