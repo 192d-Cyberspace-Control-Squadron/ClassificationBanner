@@ -1,0 +1,363 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "serialNumber": "urn:uuid:b6071fe4-faf5-4882-a088-3d717d74913b",
+  "metadata": {
+    "timestamp": "2025-12-06T11:41:50.696469000Z",
+    "tools": [
+      {
+        "vendor": "Astral Software Inc.",
+        "name": "uv",
+        "version": "0.9.15"
+      }
+    ],
+    "component": {
+      "type": "library",
+      "bom-ref": "classification-banner-1@1.3.0",
+      "name": "classification-banner",
+      "version": "1.3.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "altgraph-2@0.17.5",
+      "name": "altgraph",
+      "version": "0.17.5",
+      "purl": "pkg:pypi/altgraph@0.17.5"
+    },
+    {
+      "type": "library",
+      "bom-ref": "colorama-3@0.4.6",
+      "name": "colorama",
+      "version": "0.4.6",
+      "purl": "pkg:pypi/colorama@0.4.6",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'win32'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "coverage-4@7.12.0",
+      "name": "coverage",
+      "version": "7.12.0",
+      "purl": "pkg:pypi/coverage@7.12.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "cython-5@3.2.1",
+      "name": "cython",
+      "version": "3.2.1",
+      "purl": "pkg:pypi/cython@3.2.1",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'darwin'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "flake8-6@7.3.0",
+      "name": "flake8",
+      "version": "7.3.0",
+      "purl": "pkg:pypi/flake8@7.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "iniconfig-7@2.3.0",
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "purl": "pkg:pypi/iniconfig@2.3.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "macholib-8@1.16.4",
+      "name": "macholib",
+      "version": "1.16.4",
+      "purl": "pkg:pypi/macholib@1.16.4",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'darwin'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "mccabe-9@0.7.0",
+      "name": "mccabe",
+      "version": "0.7.0",
+      "purl": "pkg:pypi/mccabe@0.7.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "packaging-10@25.0",
+      "name": "packaging",
+      "version": "25.0",
+      "purl": "pkg:pypi/packaging@25.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pefile-11@2024.8.26",
+      "name": "pefile",
+      "version": "2024.8.26",
+      "purl": "pkg:pypi/pefile@2024.8.26",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'win32'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pluggy-12@1.6.0",
+      "name": "pluggy",
+      "version": "1.6.0",
+      "purl": "pkg:pypi/pluggy@1.6.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pycodestyle-13@2.14.0",
+      "name": "pycodestyle",
+      "version": "2.14.0",
+      "purl": "pkg:pypi/pycodestyle@2.14.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pyflakes-14@3.4.0",
+      "name": "pyflakes",
+      "version": "3.4.0",
+      "purl": "pkg:pypi/pyflakes@3.4.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pygments-15@2.19.2",
+      "name": "pygments",
+      "version": "2.19.2",
+      "purl": "pkg:pypi/pygments@2.19.2"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pyinstaller-16@6.17.0",
+      "name": "pyinstaller",
+      "version": "6.17.0",
+      "purl": "pkg:pypi/pyinstaller@6.17.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pyinstaller-hooks-contrib-17@2025.10",
+      "name": "pyinstaller-hooks-contrib",
+      "version": "2025.10",
+      "purl": "pkg:pypi/pyinstaller-hooks-contrib@2025.10"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pyobjc-core-18@12.1",
+      "name": "pyobjc-core",
+      "version": "12.1",
+      "purl": "pkg:pypi/pyobjc-core@12.1",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'darwin'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pyobjc-framework-cocoa-19@12.1",
+      "name": "pyobjc-framework-cocoa",
+      "version": "12.1",
+      "purl": "pkg:pypi/pyobjc-framework-cocoa@12.1",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'darwin'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pytest-20@9.0.1",
+      "name": "pytest",
+      "version": "9.0.1",
+      "purl": "pkg:pypi/pytest@9.0.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pytest-cov-21@7.0.0",
+      "name": "pytest-cov",
+      "version": "7.0.0",
+      "purl": "pkg:pypi/pytest-cov@7.0.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pywin32-ctypes-22@0.2.3",
+      "name": "pywin32-ctypes",
+      "version": "0.2.3",
+      "purl": "pkg:pypi/pywin32-ctypes@0.2.3",
+      "properties": [
+        {
+          "name": "uv:package:marker",
+          "value": "sys_platform == 'win32'"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "screeninfo-23@0.8.1",
+      "name": "screeninfo",
+      "version": "0.8.1",
+      "purl": "pkg:pypi/screeninfo@0.8.1"
+    },
+    {
+      "type": "library",
+      "bom-ref": "setuptools-24@80.9.0",
+      "name": "setuptools",
+      "version": "80.9.0",
+      "purl": "pkg:pypi/setuptools@80.9.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "altgraph-2@0.17.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "classification-banner-1@1.3.0",
+      "dependsOn": [
+        "flake8-6@7.3.0",
+        "pyinstaller-16@6.17.0",
+        "pytest-20@9.0.1",
+        "pytest-cov-21@7.0.0",
+        "screeninfo-23@0.8.1"
+      ]
+    },
+    {
+      "ref": "colorama-3@0.4.6",
+      "dependsOn": []
+    },
+    {
+      "ref": "coverage-4@7.12.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "cython-5@3.2.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "flake8-6@7.3.0",
+      "dependsOn": [
+        "mccabe-9@0.7.0",
+        "pycodestyle-13@2.14.0",
+        "pyflakes-14@3.4.0"
+      ]
+    },
+    {
+      "ref": "iniconfig-7@2.3.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "macholib-8@1.16.4",
+      "dependsOn": [
+        "altgraph-2@0.17.5"
+      ]
+    },
+    {
+      "ref": "mccabe-9@0.7.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "packaging-10@25.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pefile-11@2024.8.26",
+      "dependsOn": []
+    },
+    {
+      "ref": "pluggy-12@1.6.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pycodestyle-13@2.14.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pyflakes-14@3.4.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pygments-15@2.19.2",
+      "dependsOn": []
+    },
+    {
+      "ref": "pyinstaller-16@6.17.0",
+      "dependsOn": [
+        "altgraph-2@0.17.5",
+        "macholib-8@1.16.4",
+        "packaging-10@25.0",
+        "pefile-11@2024.8.26",
+        "pyinstaller-hooks-contrib-17@2025.10",
+        "pywin32-ctypes-22@0.2.3",
+        "setuptools-24@80.9.0"
+      ]
+    },
+    {
+      "ref": "pyinstaller-hooks-contrib-17@2025.10",
+      "dependsOn": [
+        "packaging-10@25.0",
+        "setuptools-24@80.9.0"
+      ]
+    },
+    {
+      "ref": "pyobjc-core-18@12.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pyobjc-framework-cocoa-19@12.1",
+      "dependsOn": [
+        "pyobjc-core-18@12.1"
+      ]
+    },
+    {
+      "ref": "pytest-20@9.0.1",
+      "dependsOn": [
+        "colorama-3@0.4.6",
+        "iniconfig-7@2.3.0",
+        "packaging-10@25.0",
+        "pluggy-12@1.6.0",
+        "pygments-15@2.19.2"
+      ]
+    },
+    {
+      "ref": "pytest-cov-21@7.0.0",
+      "dependsOn": [
+        "coverage-4@7.12.0",
+        "pluggy-12@1.6.0",
+        "pytest-20@9.0.1"
+      ]
+    },
+    {
+      "ref": "pywin32-ctypes-22@0.2.3",
+      "dependsOn": []
+    },
+    {
+      "ref": "screeninfo-23@0.8.1",
+      "dependsOn": [
+        "cython-5@3.2.1",
+        "pyobjc-framework-cocoa-19@12.1"
+      ]
+    },
+    {
+      "ref": "setuptools-24@80.9.0",
+      "dependsOn": []
+    }
+  ]
+}
