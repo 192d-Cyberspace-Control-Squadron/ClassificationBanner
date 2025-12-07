@@ -18,8 +18,8 @@ ABE_BOTTOM = 3
 DEFAULT_CLASSIFICATION = "UNCONFIGURED"
 DEFAULT_BG_COLOR = "#FFFFFF"
 DEFAULT_FG_COLOR = "#000000"
-DEFAULT_BANNER_HEIGHT = 35
-DEFAULT_FONT_SIZE = 12
+DEFAULT_BANNER_HEIGHT = 20
+DEFAULT_FONT_SIZE = 6
 DEFAULT_FONT_FAMILY = "Arial"
 DEFAULT_ENABLED = 1
 DEFAULT_FPCON = "Alpha"
@@ -42,7 +42,7 @@ COLOR_SCHEMES = {
     "CONFIDENTIAL": {"bg": "#0000FF", "fg": "#FFFFFF", "text": "CONFIDENTIAL", "caveats":"", "dc": ""},
     "SECRET": {"bg": "#FF0000", "fg": "#000000", "text": "SECRET", "caveats":"", "dc": ""},
     "TOP SECRET": {"bg": "#FF8C00", "fg": "#000000", "text": "TOP SECRET", "caveats":"", "dc": ""},
-    "SCI": {"bg": "#FFFF00", "fg": "#000000", "text": "TOP SECRET", "caveats":"HCS/SI/TK", "dc": "NOFORN"},
+    "SCI": {"bg": "#FFFF00", "fg": "#000000", "text": "TOP SECRET", "caveats":"HCS/SI/TK/G", "dc": "NOFORN"},
 }
 
 # UI layout settings
