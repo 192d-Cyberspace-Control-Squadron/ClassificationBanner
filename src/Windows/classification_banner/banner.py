@@ -21,6 +21,9 @@ class ClassificationBanner:
         self.windows: List[BannerWindow] = []
         self.system_info_text: str = ""
 
+        # Track monitor layout (x, y, width, height for each monitor)
+        self._last_monitor_layout: list[tuple[int, int, int, int]] | None = None
+
         # Load initial settings
         self._load_settings()
         self.settings.store_current_state()
@@ -36,6 +39,7 @@ class ClassificationBanner:
         if self.settings.enabled:
             self._create_banners()
             self._schedule_registry_check()
+            self._schedule_monitor_check()
 
     def _load_settings(self):
         """Load settings from registry"""
@@ -60,6 +64,11 @@ class ClassificationBanner:
     def _create_banners(self):
         """Create banner windows for all monitors"""
         monitors = MonitorManager.get_all_monitors()
+
+        # Store the layout we built banners for
+        self._last_monitor_layout = [
+            (m.x, m.y, m.width, m.height) for m in monitors
+        ]
 
         for monitor in monitors:
             window = BannerWindow(monitor, self.settings, self.system_info_text)
@@ -86,6 +95,38 @@ class ClassificationBanner:
             window.destroy()
         self.windows = []
 
+    def _get_monitor_layout(self) -> list[tuple[int, int, int, int]]:
+        """Return a simple list describing all monitors."""
+        monitors = MonitorManager.get_all_monitors()
+        return [(m.x, m.y, m.width, m.height) for m in monitors]
+
+    def _schedule_monitor_check(self):
+        """Schedule periodic checks for monitor/resolution changes."""
+        if self.windows:
+            # Every 2 seconds – tune as needed
+            self.windows[0].get_window().after(2000, self._check_monitor_changes)
+
+    def _check_monitor_changes(self):
+        """Recreate banners if the monitor layout has changed."""
+        try:
+            current_layout = self._get_monitor_layout()
+
+            if self._last_monitor_layout is None:
+                # First time – just remember it
+                self._last_monitor_layout = current_layout
+            elif current_layout != self._last_monitor_layout:
+                print("Monitor layout changed – recreating banners...")
+                self._last_monitor_layout = current_layout
+                self._recreate_banners()
+
+            # Keep checking
+            self._schedule_monitor_check()
+
+        except SystemError as e:
+            print(f"Error checking monitor layout: {e}")
+            # Try again next time even on error
+            self._schedule_monitor_check()
+    
     def _schedule_registry_check(self):
         """Schedule next registry check"""
         if self.windows:
